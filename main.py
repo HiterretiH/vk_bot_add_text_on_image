@@ -40,12 +40,12 @@ for event in longpoll.listen():
             id_from = event.user_id
             if event.attachments and event.attachments['attach1_type'] == 'photo':
                 a = vk.method('messages.getById', {'message_ids': event.message_id})
-                print(f"""Новое сообщение от {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-    Автор: {get_name(id_from)}
-    Текст: {a['items'][0]['text']}
-    Картинка: {a['items'][0]['attachments'][0]['photo']['sizes'][-1]['url']}\n""")
                 text = a['items'][0]['text']
                 url = a['items'][0]['attachments'][0]['photo']['sizes'][-1]['url']
+                print(f"""Новое сообщение от {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+    Автор: {get_name(id_from)}
+    Текст: {text}
+    Картинка: {url}\n""")
                 save_image(url)
                 image.drawTextOnImage("1.jpg", text)
                 send_image("done.jpg", id_from)
